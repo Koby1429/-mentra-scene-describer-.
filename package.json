@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
-    "start": "ts-node index.ts"
+    "start": "ts-node --transpile-only index.ts"
   },
   "dependencies": {
     "@mentra/sdk": "^1.0.0",
