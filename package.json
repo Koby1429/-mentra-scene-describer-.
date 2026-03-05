@@ -1,19 +1,14 @@
 {
-  "name": "mentra-scene-describer",
-  "version": "1.0.0",
-  "main": "index.ts",
-  "scripts": {
-    "start": "ts-node --transpile-only index.ts"
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "strict": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
   },
-  "dependencies": {
-    "@mentra/sdk": "^1.0.0",
-    "@tensorflow/tfjs-node": "^4.20.0",
-    "@tensorflow-models/coco-ssd": "^2.2.3",
-    "dotenv": "^16.4.5",
-    "http": "^0.0.1-security",
-    "ts-node": "^10.9.2"
-  },
-  "devDependencies": {
-    "@types/node": "^20.0.0"
+  "ts-node": {
+    "transpileOnly": true
   }
 }
