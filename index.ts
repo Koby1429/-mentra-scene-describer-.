@@ -1,12 +1,12 @@
-import { AppServer, AppSession } from '@mentra/sdk';
-import * as tf from '@tensorflow/tfjs-node';
+import { TpaServer, TpaSession } from '@mentra/sdk';
+import * as tf from '@tensorflow/tfjs-node'; // For ML model
 import * as cocoSsd from '@tensorflow-models/coco-ssd'; // For object detection
 import * as dotenv from 'dotenv';
 import http from 'http';
 
 dotenv.config(); // Loads .env variables like MENTRA_API_KEY (local only)
 
-class SceneDescriberApp extends AppServer {
+class SceneDescriberApp extends TpaServer {
   private model: cocoSsd.ObjectDetection | null = null;
 
   constructor(options: any) {
@@ -25,7 +25,7 @@ class SceneDescriberApp extends AppServer {
   }
 
   protected async onSession(
-    session: AppSession,
+    session: TpaSession,
     sessionId: string,
     userId: string
   ): Promise<void> {
@@ -35,7 +35,7 @@ class SceneDescriberApp extends AppServer {
     await session.audio.speak('Scene describer ready. Say "describe scene" to scan.');
 
     // Listen for voice commands via transcription events
-    session.events.onTranscription(async (data) => {
+    session.events.onTranscription(async (data: { text: string; isFinal?: boolean }) => {
       const text = data.text.toLowerCase().trim();
       console.log(`User said: ${text}`);
 
@@ -112,7 +112,7 @@ http.createServer((req, res) => {
 try {
   server.start();
   console.log('Mentra AppServer started successfully (default port 7010)');
-} catch (err) {
+} catch (err: any) {
   console.error('Mentra startup failed:', err.message || err);
   process.exit(1);
 }
